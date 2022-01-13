@@ -13,8 +13,8 @@ import frc.robot.subsystems.DriveTrain;
 public class DriveCommand extends CommandBase {
   private DriveTrain driveTrainSubsystem;
 
-  private double maxForward = Math.sqrt(0.7);
-  private double maxTurn = Math.sqrt(0.5);
+  private double maxForward = Math.sqrt(0.1);
+  private double maxTurn = Math.sqrt(0.8);
 
   // percent per seccond
   private final double ACCELERATION = 1.0;

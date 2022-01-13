@@ -6,8 +6,6 @@ package frc.robot;
 
 import java.util.Map;
 
-import org.opencv.features2d.FlannBasedMatcher;
-
 import edu.wpi.first.networktables.*;
 import edu.wpi.first.wpilibj.shuffleboard.*;
 

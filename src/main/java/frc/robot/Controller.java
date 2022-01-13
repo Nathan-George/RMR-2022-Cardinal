@@ -4,6 +4,7 @@
 
 package frc.robot;
 
+import edu.wpi.first.math.filter.LinearFilter;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.GenericHID.RumbleType;
 
@@ -12,6 +13,9 @@ public class Controller
 {
     public static class Drive
     {
+        public static LinearFilter forward;
+        public static LinearFilter turn;
+
         /**
          * Drive Controller Mapping
          * Left Joystick -> controls both speed and direction
@@ -52,6 +56,10 @@ public class Controller
             double multiplier = 1 - (1 - Math.sqrt(0.5)) * (1 + trigger) / 2;
 
             return controller.getLeftX() * multiplier;
+        }
+
+        public static double get_secondary_vertical(){
+            return controller.getRightY();
         }
 
         public static void setRumble(boolean hasRumble)
