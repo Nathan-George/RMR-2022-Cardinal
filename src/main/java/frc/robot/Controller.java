@@ -13,6 +13,9 @@ public class Controller
 {
     public static class Drive
     {
+        public static LinearFilter forward;
+        public static LinearFilter turn;
+
         /**
          * Drive Controller Mapping
          * Left Joystick -> controls both speed and direction
@@ -51,6 +54,10 @@ public class Controller
         public static double get_turn()
         {
             return turnRateLimiter.calculate(controller.getLeftX());
+        }
+
+        public static double get_secondary_vertical(){
+            return controller.getRightY();
         }
 
         public static void setRumble(boolean hasRumble)

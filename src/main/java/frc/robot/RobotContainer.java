@@ -26,7 +26,6 @@ public class RobotContainer {
   private final DriveCommand driveCommand = new DriveCommand(driveTrain);
   private final DriveCurrentMoniter driveCurrentMoniter = new DriveCurrentMoniter();
   private final CommandBase driveInteruptCommand = (new WaitCommand(1.5)).deadlineWith(new DriveInteruptCommand(driveTrain));
-  
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
     // Configure the button bindings
@@ -60,9 +59,11 @@ public class RobotContainer {
   public void scheduleTeleOpCommands() {
     // command that will run on drive train when no other commands are running
     driveTrain.setDefaultCommand(driveCommand);
+    levitationSystem.setDefaultCommand(wingardiumLeviosa);
 
     // command responsible for checking PDP
     driveCurrentMoniter.schedule();
+
   }
 
   public void checkForCommandsToSchedule()

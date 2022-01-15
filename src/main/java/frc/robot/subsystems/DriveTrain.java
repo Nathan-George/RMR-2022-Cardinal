@@ -64,10 +64,6 @@ public class DriveTrain extends SubsystemBase {
 
     right = new MotorControllerGroup(frontRight, backRight);
 
-
-
-
-
     left.setInverted(true);
 
     drive = new DifferentialDrive(left, right);
