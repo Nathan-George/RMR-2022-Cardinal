@@ -4,6 +4,8 @@
 
 package frc.robot.commands;
 
+import java.util.ResourceBundle.Control;
+
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.CardinalShuffleboard;
 import frc.robot.Controller;
@@ -23,8 +25,8 @@ public class DriveCommand extends CommandBase {
   private final double ANGULAR_ACCELERATION = 3.0;
 
   // current effective power for moving forward and turning
-  private double forwardPower;
-  private double turnPower;
+  private double forwardMAGIC;
+  private double turnMAGIC;
 
   /** Creates a new Drive. */
   public DriveCommand(DriveTrain in_driveTrainSubsystem) {
@@ -36,50 +38,51 @@ public class DriveCommand extends CommandBase {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    forwardPower = 0.0;
-    turnPower = 0.0;
+    forwardMAGIC = 0.0;
+    turnMAGIC = 0.0;
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
     // will be squared later in differential drive
+    
     maxForward = Math.sqrt(CardinalShuffleboard.getMaxForwardPowerEntry());
     maxTurn = Math.sqrt(CardinalShuffleboard.getMaxTurnPowerEntry());
 
-    double targetForwardPower = Controller.Drive.get_forward();
-    double targetTurnPower = Controller.Drive.get_turn();
+    double targetForwardMAGIC = Controller.Drive.get_forward();
+    double targetTurnMAGIC = Controller.Drive.get_turn();
 
     // adjust forward power based on the target
 
     // if close enough set them equal
-    if (Math.abs(targetForwardPower - forwardPower) < Math.max(ACCELERATION, DECCELERATION) * Robot.period) {
-      forwardPower = targetForwardPower;
+    if (Math.abs(targetForwardMAGIC - forwardMAGIC) < Math.max(ACCELERATION, DECCELERATION) * Robot.period) {
+      forwardMAGIC = targetForwardMAGIC;
     }
     // if accelerating
-    else if ((forwardPower > 0 && targetForwardPower > forwardPower) || (forwardPower < 0 && targetForwardPower < forwardPower))
+    else if ((forwardMAGIC > 0 && targetForwardMAGIC > forwardMAGIC) || (forwardMAGIC < 0 && targetForwardMAGIC < forwardMAGIC))
     {
-      forwardPower += Math.copySign(ACCELERATION, forwardPower) * Robot.period;
+      forwardMAGIC += Math.copySign(ACCELERATION, forwardMAGIC) * Robot.period;
     }
     // else decelerate
     else {
-      forwardPower += Math.copySign(DECCELERATION, -forwardPower) * Robot.period;
+      forwardMAGIC += Math.copySign(DECCELERATION, -forwardMAGIC) * Robot.period;
     }
 
     // adjust turn power based on the target
 
     // if close enough set them equal
-    if (Math.abs(targetTurnPower - turnPower) < ANGULAR_ACCELERATION * Robot.period)
+    if (Math.abs(targetTurnMAGIC - turnMAGIC) < ANGULAR_ACCELERATION * Robot.period)
     {
-      turnPower = targetTurnPower;
+      turnMAGIC = targetTurnMAGIC;
     }
     // else change turn power
     else {
-      turnPower += Math.copySign(ANGULAR_ACCELERATION, targetTurnPower-turnPower) * Robot.period;
+      turnMAGIC += Math.copySign(ANGULAR_ACCELERATION, targetTurnMAGIC-turnMAGIC) * Robot.period;
     }
-
+    
     // command subsystem
-    driveTrainSubsystem.set(forwardPower * maxForward, turnPower * maxTurn);
+    driveTrainSubsystem.set(forwardMAGIC * maxForward, Controller.Drive.get_turn() * 0.8);
   }
 
   // Called once the command ends or is interrupted.

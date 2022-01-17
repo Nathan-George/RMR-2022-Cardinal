@@ -26,9 +26,9 @@ public class WheelsCommand extends CommandBase {
   @Override
   public void execute() {
     if (Controller.Drive.get_a_button()) {
-      launchWheels.set(1);
+      launchWheels.set(0.5);
     } else if (Controller.Drive.get_b_button()) {
-      launchWheels.set(-1);
+      launchWheels.set(-0.5);
     } else {
       launchWheels.set(0);
     }

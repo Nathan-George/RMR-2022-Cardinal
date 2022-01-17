@@ -35,7 +35,7 @@ public class Controller
             double multiplier = 1 - (1 - Math.sqrt(0.5)) * (1 + trigger) / 2;
 
             // controller should be invered forward is negative
-            return -controller.getLeftY() * multiplier;
+            return controller.getLeftY();
         }
 
         /**
@@ -51,7 +51,7 @@ public class Controller
             // scales the trigger value to 1 -> sqrt(0.5) and -1 -> 1
             double multiplier = 1 - (1 - Math.sqrt(0.5)) * (1 + trigger) / 2;
 
-            return controller.getLeftX() * multiplier;
+            return controller.getLeftX();
         }
 
         public static double get_secondary_vertical_stick(){

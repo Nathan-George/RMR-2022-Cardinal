@@ -24,7 +24,7 @@ public class SpinTheSpinner extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    spinnyThing.set(Controller.Drive.get_right_stick_horizontal() * 0.1);
+    spinnyThing.set(Controller.Drive.get_right_stick_horizontal() * 0.7);
   }
 
   // Called once the command ends or is interrupted.
